@@ -8,7 +8,7 @@
 
 // I AM NOT DONE
 
-fn main() {
-    let mut shopping_list: Vec<?> = Vec::new();
+fn main() { // I need to actually learn what this is
+    let mut shopping_list: Vec<&'static str> = Vec::new();
     shopping_list.push("milk");
 }
