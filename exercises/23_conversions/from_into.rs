@@ -7,6 +7,8 @@
 // Execute `rustlings hint from_into` or use the `hint` watch subcommand for a
 // hint.
 
+use std::usize;
+
 #[derive(Debug)]
 struct Person {
     name: String,
@@ -24,7 +26,6 @@ impl Default for Person {
     }
 }
 
-
 // Your task is to complete this implementation in order for the line `let p1 =
 // Person::from("Mark,20")` to compile. Please note that you'll need to parse the
 // age component into a `usize` with something like `"4".parse::<usize>()`. The
@@ -41,10 +42,26 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of
 // Person Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
 
 impl From<&str> for Person {
-    fn from(s: &str) -> Person {}
+    fn from(s: &str) -> Person {
+        let mut info = s.split(",");
+        let name = match info.next() {
+            Some("") | None => return Person::default(),
+            Some(name) => name.to_string(),
+        };
+        let age = match info.next() {
+            Some(age) => match age.parse::<usize>() {
+                Ok(age) => age,
+                Err(_) => return Person::default(),
+            },
+            None => return Person::default(),
+        };
+        match info.next() {
+            Some(_) => return Person::default(),
+            None => return Person { name, age },
+        }
+    }
 }
 
 fn main() {
